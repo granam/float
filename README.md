@@ -1,35 +1,35 @@
-# Base value object with float only
+# Converter and object wrapper for float value
 
-[![Build Status](https://travis-ci.org/jaroslavtyc/granam-strict-float.svg?branch=master)](https://travis-ci.org/jaroslavtyc/granam-strict-float)
-
-PHP does not provide scalar type hinting [yet](https://wiki.php.net/rfc/scalar_type_hints#proposed_php_version_s) (planned for PHP 7.0).
-
-For that reason, if we want to be sure about scalar type, a type-checking class is the only chance.
+[![Build Status](https://travis-ci.org/jaroslavtyc/granam-float.svg?branch=master)](https://travis-ci.org/jaroslavtyc/granam-float)
 
 Note: requires PHP 5.4+
 
 ```php
 <?php
-use Granam\Strict\Float\StrictFloat;
-use Granam\Strict\Float\Exceptions\WrongParameterType;
+use Granam\Float\Float;
+use Granam\Float\Exceptions\WrongParameterType;
 
-$float = new StrictFloat(123.456);
+$float = new Float(123.456);
 
 // double(123.456)
 var_dump($float->getValue());
 // string(7) "123.456"
 var_dump((string)$float);
 
-$float = new StrictFloat(null, false /* explicitly non-strict*/);
+$float = new Float(null);
 // double(0)
 var_dump($float->getValue());
 // string(0)
 var_dump((string)$float);
 
+$float = new Float($withTooLongDecimal = '123456.999999999999999999999999999999999999');
+// double 123457
+var_dump($float->getValue());
+
 try {
-  new StrictFloat(null);
+  new Float('123.999999999999999999999999999999', true /* paranoid to rounding */);
 } catch (WrongParameterType $floatException) {
-  // Something get wrong: On strict mode expected float only, got NULL
+  // Something get wrong: Some value has been lost on cast. Given string-number '123456.999999999999999999999999999999999999' results into float 123457
   die('Something get wrong: ' . $floatException->getMessage());
 }
 
