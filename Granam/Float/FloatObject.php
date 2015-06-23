@@ -4,7 +4,7 @@ namespace Granam\Float;
 use Granam\Float\Tools\ToFloat;
 use Granam\Scalar\Scalar;
 
-class Float extends Scalar implements FloatInterface
+class FloatObject extends Scalar implements FloatInterface
 {
 
     /**

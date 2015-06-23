@@ -10,7 +10,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function can_create_instance()
     {
-        $instance = new Float(123.456);
+        $instance = new FloatObject(123.456);
         $this->assertNotNull($instance);
 
         return $instance;
@@ -23,7 +23,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      *
      * @depends can_create_instance
      */
-    public function has_local_interface(Float $float)
+    public function has_local_interface(FloatObject $float)
     {
         $this->assertInstanceOf('Granam\Float\FloatInterface', $float);
     }
@@ -35,7 +35,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function gives_same_value_as_created_with()
     {
-        $nonStrict = new Float($float = 123.456);
+        $nonStrict = new FloatObject($float = 123.456);
         $this->assertSame($float, $nonStrict->getValue());
     }
 
@@ -46,7 +46,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function can_be_turned_into_string()
     {
-        $floatObject = new Float($float = 123.456);
+        $floatObject = new FloatObject($float = 123.456);
         $this->assertSame((string)$float, (string)$floatObject);
     }
 
@@ -55,7 +55,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function integer_is_accepted()
     {
-        $floatObject = new Float($integer = 123);
+        $floatObject = new FloatObject($integer = 123);
         $this->assertSame(floatval($integer), $floatObject->getValue());
     }
 
@@ -64,7 +64,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function false_is_float_zero()
     {
-        $floatObject = new Float(false);
+        $floatObject = new FloatObject(false);
         $this->assertSame(0.0, $floatObject->getValue());
         $this->assertSame(floatval(false), $floatObject->getValue());
     }
@@ -74,7 +74,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function true_is_float_one()
     {
-        $floatObject = new Float(true);
+        $floatObject = new FloatObject(true);
         $this->assertSame(1.0, $floatObject->getValue());
         $this->assertSame(floatval(true), $floatObject->getValue());
     }
@@ -84,7 +84,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function null_is_zero()
     {
-        $floatObject = new Float(null);
+        $floatObject = new FloatObject(null);
         $this->assertSame(0.0, $floatObject->getValue());
         $this->assertSame(floatval(null), $floatObject->getValue());
     }
@@ -95,7 +95,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function array_cause_exception()
     {
-        new Float([]);
+        new FloatObject([]);
     }
 
     /**
@@ -104,7 +104,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function resource_cause_exception()
     {
-        new Float(tmpfile());
+        new FloatObject(tmpfile());
     }
 
     /**
@@ -113,7 +113,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function object_cause_exception()
     {
-        new Float(new \stdClass());
+        new FloatObject(new \stdClass());
     }
 
     /**
@@ -121,9 +121,9 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function to_string_object_is_that_object_float_value()
     {
-        $floatObject = new Float(new TestWithToString($float = 123.456));
+        $floatObject = new FloatObject(new TestWithToString($float = 123.456));
         $this->assertSame($float, $floatObject->getValue());
-        $stringFloatObject = new Float(new TestWithToString($stringFloat = '987.654'));
+        $stringFloatObject = new FloatObject(new TestWithToString($stringFloat = '987.654'));
         $this->assertSame(floatval($stringFloat), $stringFloatObject->getValue());
     }
 
@@ -132,7 +132,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function to_string_object_without_float_is_zero()
     {
-        $float = new Float(new TestWithToString($string = 'non-float'));
+        $float = new FloatObject(new TestWithToString($string = 'non-float'));
         $this->assertSame(0.0, $float->getValue());
         $this->assertSame(floatval($string), $float->getValue());
     }
@@ -142,13 +142,13 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function wrapping_trash_is_trimmed()
     {
-        $withWrappingZeroes = new Float($zeroWrappedNumber = '0000123456.789000');
+        $withWrappingZeroes = new FloatObject($zeroWrappedNumber = '0000123456.789000');
         $this->assertSame(123456.789, $withWrappingZeroes->getValue());
         $this->assertSame(floatval($zeroWrappedNumber), $withWrappingZeroes->getValue());
-        $integerLike = new Float($integerLikeNumber = '0000123456.0000');
+        $integerLike = new FloatObject($integerLikeNumber = '0000123456.0000');
         $this->assertSame(123456.0, $integerLike->getValue());
         $this->assertSame(floatval($integerLikeNumber), $integerLike->getValue());
-        $trashAround = new Float($trashWrappedNumber = '   123456.0051500  foo bar 12565.04181 ');
+        $trashAround = new FloatObject($trashWrappedNumber = '   123456.0051500  foo bar 12565.04181 ');
         $this->assertSame(123456.00515, $trashAround->getValue());
         $this->assertSame(floatval($trashWrappedNumber), $trashAround->getValue());
     }
@@ -158,10 +158,10 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function lost_value_is_not_detected_by_default()
     {
-        $float = new Float($withTooLongDecimal = '123456.999999999999999999999999999999999999');
+        $float = new FloatObject($withTooLongDecimal = '123456.999999999999999999999999999999999999');
         $this->assertSame(123457.0, $float->getValue());
         $this->assertSame(floatval($withTooLongDecimal), $float->getValue());
-        $float = new Float($withTooLongInteger = '222222222222222222222222222222222222222222.123');
+        $float = new FloatObject($withTooLongInteger = '222222222222222222222222222222222222222222.123');
         $this->assertSame(2.2222222222222224E+41, $float->getValue());
         $this->assertSame(floatval($withTooLongInteger), $float->getValue());
     }
@@ -172,7 +172,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function lost_decimal_value_can_be_detected()
     {
-        new Float('123456.999999999999999999999999999999999999', true /* paranoid */);
+        new FloatObject('123456.999999999999999999999999999999999999', true /* paranoid */);
     }
 
 }
