@@ -1,0 +1,32 @@
+{
+    "name": "granam/float",
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Jaroslav Týc",
+          "homepage": "http://jaroslav.com",
+          "role": "Original author"
+        }
+    ],
+    "type": "project",
+    "description": "Converter and wrapping object for a float value",
+    "keywords": [
+        "php",
+        "float",
+        "strict"
+    ],
+    "homepage": "https://github.com/jaroslavtyc/granam-float",
+    "autoload": {
+        "psr-4": { "Granam\\": "Granam/" }
+    },
+    "require": {
+      "php": ">=5.4",
+      "granam/exception-hierarchy": "dev-master",
+      "granam/strict-object": "dev-master",
+      "granam/scalar": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4",
+        "mockery/mockery": ">=0.9"
+    }
+}
