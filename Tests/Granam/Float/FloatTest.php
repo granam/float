@@ -17,7 +17,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param Float $float
+     * @param FloatObject $float
      *
      * @test
      *

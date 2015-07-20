@@ -1,5 +1,5 @@
 <?php
-namespace Granam\Strict\Float;
+namespace Granam\Float;
 
 class FloatInterfaceTest extends \PHPUnit_Framework_TestCase
 {
