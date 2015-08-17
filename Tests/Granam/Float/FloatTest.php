@@ -5,46 +5,27 @@ class FloatTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * 
-     * @return Float
      */
-    public function can_create_instance()
+    public function I_can_create_float_object()
     {
-        $instance = new FloatObject(123.456);
-        $this->assertNotNull($instance);
-
-        return $instance;
-    }
-
-    /**
-     * @param FloatObject $float
-     *
-     * @test
-     *
-     * @depends can_create_instance
-     */
-    public function has_local_interface(FloatObject $float)
-    {
-        $this->assertInstanceOf('Granam\Float\FloatInterface', $float);
+        $floatObject = new FloatObject(123.456);
+        $this->assertNotNull($floatObject);
+        $this->assertInstanceOf('Granam\Float\FloatInterface', $floatObject);
     }
 
     /**
      * @test
-     *
-     * @depends can_create_instance
      */
-    public function gives_same_value_as_created_with()
+    public function I_can_get_value()
     {
-        $nonStrict = new FloatObject($float = 123.456);
-        $this->assertSame($float, $nonStrict->getValue());
+        $floatObject = new FloatObject($float = 123.456);
+        $this->assertSame($float, $floatObject->getValue());
     }
 
     /**
      * @test
-     *
-     * @depends gives_same_value_as_created_with
      */
-    public function can_be_turned_into_string()
+    public function I_can_use_float_object_as_string()
     {
         $floatObject = new FloatObject($float = 123.456);
         $this->assertSame((string)$float, (string)$floatObject);
@@ -53,7 +34,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function integer_is_accepted()
+    public function I_can_use_integer_value()
     {
         $floatObject = new FloatObject($integer = 123);
         $this->assertSame(floatval($integer), $floatObject->getValue());
@@ -62,7 +43,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function false_is_float_zero()
+    public function I_can_use_false_as_float_zero()
     {
         $floatObject = new FloatObject(false);
         $this->assertSame(0.0, $floatObject->getValue());
@@ -72,7 +53,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function true_is_float_one()
+    public function I_can_use_true_as_float_one()
     {
         $floatObject = new FloatObject(true);
         $this->assertSame(1.0, $floatObject->getValue());
@@ -82,7 +63,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function null_is_zero()
+    public function I_can_use_null_as_float_zero()
     {
         $floatObject = new FloatObject(null);
         $this->assertSame(0.0, $floatObject->getValue());
@@ -93,7 +74,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Float\Exceptions\WrongParameterType
      */
-    public function array_cause_exception()
+    public function I_cannot_use_array()
     {
         new FloatObject([]);
     }
@@ -102,7 +83,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Float\Exceptions\WrongParameterType
      */
-    public function resource_cause_exception()
+    public function I_cannot_use_resource()
     {
         new FloatObject(tmpfile());
     }
@@ -111,7 +92,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Float\Exceptions\WrongParameterType
      */
-    public function object_cause_exception()
+    public function I_cannot_use_object()
     {
         new FloatObject(new \stdClass());
     }
@@ -119,7 +100,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function to_string_object_is_that_object_float_value()
+    public function I_can_use_object_with_to_string()
     {
         $floatObject = new FloatObject(new TestWithToString($float = 123.456));
         $this->assertSame($float, $floatObject->getValue());
@@ -130,7 +111,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function to_string_object_without_float_is_zero()
+    public function I_get_to_string_object_without_float_as_float_zero()
     {
         $float = new FloatObject(new TestWithToString($string = 'non-float'));
         $this->assertSame(0.0, $float->getValue());
@@ -140,7 +121,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function wrapping_trash_is_trimmed()
+    public function I_get_value_withouth_wrapping_trash()
     {
         $withWrappingZeroes = new FloatObject($zeroWrappedNumber = '0000123456.789000');
         $this->assertSame(123456.789, $withWrappingZeroes->getValue());
@@ -156,7 +137,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function lost_value_is_not_detected_by_default()
+    public function Rounding_is_done_silently_by_default()
     {
         $float = new FloatObject($withTooLongDecimal = '123456.999999999999999999999999999999999999');
         $this->assertSame(123457.0, $float->getValue());
@@ -170,9 +151,20 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      * @test
      * @expectedException \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
-    public function lost_decimal_value_can_be_detected()
+    public function I_can_force_exception_in_case_of_rounding()
     {
-        new FloatObject('123456.999999999999999999999999999999999999', true /* paranoid */);
+        try {
+            $floatObject = new FloatObject($floatValue = '123456.999', true /* paranoid */);
+            $this->assertSame(floatval($floatValue), $floatObject->getValue());
+        } catch (\Exception $exception) {
+            $this->fail('Unexpected any exception here: ' . $exception->getMessage());
+        }
+        try {
+            new FloatObject('123456.999999999999999999999999999999999999', true /* paranoid */);
+            $this->fail('Rounding has not been detected');
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
 }

@@ -1,9 +1,7 @@
 <?php
 namespace Granam\Float\Tools\Exceptions;
 
-use Granam\Float\Exceptions\Runtime;
-
-class ValueLostOnCast extends \RuntimeException implements Runtime
+class ValueLostOnCast extends \Granam\Number\Tools\Exceptions\ValueLostOnCast implements Runtime
 {
 
 }

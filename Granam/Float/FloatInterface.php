@@ -1,9 +1,12 @@
 <?php
 namespace Granam\Float;
 
-use Granam\Scalar\ScalarInterface;
+use Granam\Number\NumberInterface;
 
-interface FloatInterface extends ScalarInterface
+interface FloatInterface extends NumberInterface
 {
-
+    /**
+     * @return float
+     */
+    public function getValue();
 }

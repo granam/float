@@ -2,20 +2,10 @@
 namespace Granam\Float;
 
 use Granam\Float\Tools\ToFloat;
-use Granam\Scalar\Scalar;
+use Granam\Number\NumberObject;
 
-class FloatObject extends Scalar implements FloatInterface
+class FloatObject extends NumberObject implements FloatInterface
 {
-
-    /**
-     * @var float
-     */
-    protected $value;
-
-    /**
-     * @var  bool
-     */
-    protected $paranoid;
 
     /**
      * @param mixed $value
@@ -23,24 +13,7 @@ class FloatObject extends Scalar implements FloatInterface
      */
     public function __construct($value, $paranoid = false)
     {
-        $this->paranoid = (bool)$paranoid;
-        $this->value = ToFloat::toFloat($value, $this->paranoid);
-    }
-
-    /**
-     * @return float
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isParanoid()
-    {
-        return $this->paranoid;
+        parent::__construct(ToFloat::toFloat($value, $paranoid), $paranoid);
     }
 
 }
