@@ -1,6 +1,7 @@
 <?php
 namespace Granam\Float\Tools;
 
+use Granam\Number\Tools\ToNumber;
 use Granam\Scalar\Tools\ToString;
 
 class ToFloat
@@ -12,23 +13,40 @@ class ToFloat
      */
     public static function toFloat($value, $paranoid = false)
     {
-        if (is_float($value) || is_bool($value) || is_null($value)) {
-            // true = 1; false = 0; null = 0
+        // true = 1; false = 0; null = 0
+        $value = self::convertToNumber($value, $paranoid);
+
+        if (is_float($value)) {
             return floatval($value);
         }
 
-        try {
-            $stringValue = ToString::toString($value);
-        } catch (\Granam\Scalar\Tools\Exceptions\WrongParameterType $exception) {
-            throw new Exceptions\WrongParameterType($exception->getMessage(), $exception->getCode(), $exception);
-        }
-
+        $stringValue = self::convertToString($value);
         $floatValue = floatval($stringValue); // note: '' = 0
         if ($paranoid) {
             self::checkIfNoValueHasBeenLostByCast($floatValue, $stringValue);
         }
 
         return $floatValue;
+    }
+
+    private static function convertToNumber($value, $paranoid)
+    {
+        try {
+            return ToNumber::toNumber($value, $paranoid);
+        } catch (\Granam\Number\Tools\Exceptions\WrongParameterType $exception) {
+            throw new Exceptions\WrongParameterType($exception->getMessage(), $exception->getCode(), $exception);
+        } catch (\Granam\Number\Tools\Exceptions\ValueLostOnCast $exception) {
+            throw new Exceptions\ValueLostOnCast($exception->getMessage(), $exception->getCode(), $exception);
+        }
+    }
+
+    private static function convertToString($value)
+    {
+        try {
+            return ToString::toString($value);
+        } catch (\Granam\Scalar\Tools\Exceptions\WrongParameterType $exception) {
+            throw new Exceptions\WrongParameterType($exception->getMessage(), $exception->getCode(), $exception);
+        }
     }
 
     private static function checkIfNoValueHasBeenLostByCast($floatValue, $stringValue)
