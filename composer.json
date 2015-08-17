@@ -12,6 +12,7 @@
   "description": "Converter and wrapping object for a float value",
   "keywords": [
     "php",
+    "number",
     "float",
     "strict"
   ],
@@ -23,12 +24,10 @@
   },
   "require": {
     "php": ">=5.4",
-    "granam/number": "dev-master"
+    "granam/number": "~1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4",
     "mockery/mockery": ">=0.9"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+  }
 }
