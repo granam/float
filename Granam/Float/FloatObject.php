@@ -13,7 +13,7 @@ class FloatObject extends NumberObject implements FloatInterface
      */
     public function __construct($value, $paranoid = false)
     {
-        parent::__construct(ToFloat::toFloat($value, $paranoid), $paranoid);
+        parent::__construct(ToFloat::toFloat($value, $paranoid));
     }
 
 }
