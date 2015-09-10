@@ -1,7 +1,8 @@
 <?php
 namespace Granam\Float\Exceptions;
 
-class WrongParameterTypeTest extends RuntimeTest {
+class WrongParameterTypeTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @test
@@ -14,9 +15,9 @@ class WrongParameterTypeTest extends RuntimeTest {
 
     /**
      * @test
-     * @expectedException \Granam\Float\Exceptions\Logic
+     * @expectedException \Granam\Float\Exceptions\Runtime
      */
-    public function is_based_on_local_logic_exception()
+    public function is_based_on_local_runtime_exception()
     {
         throw new WrongParameterType;
     }
