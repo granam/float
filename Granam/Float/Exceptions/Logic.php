@@ -1,7 +1,7 @@
 <?php
 namespace Granam\Float\Exceptions;
 
-interface Logic extends Exception, \Granam\Exceptions\Logic
+interface Logic extends Exception, \Granam\Number\Exceptions\Logic
 {
 
 }
