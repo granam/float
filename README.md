@@ -4,6 +4,9 @@
 
 Note: requires PHP 5.4+
 
+## Hint
+First of all, make sure you don't need just a [simple  built-in float validation](http://php.net/manual/en/function.filter-var.php).
+
 ```php
 <?php
 use Granam\FloatObject\FloatObject;
