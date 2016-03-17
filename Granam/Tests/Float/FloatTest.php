@@ -1,5 +1,7 @@
 <?php
-namespace Granam\Float;
+namespace Granam\Tests\Float;
+
+use Granam\Float\FloatObject;
 
 class FloatTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,8 +11,8 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_can_create_float_object()
     {
         $floatObject = new FloatObject(123.456);
-        $this->assertNotNull($floatObject);
-        $this->assertInstanceOf('Granam\Float\FloatInterface', $floatObject);
+        self::assertNotNull($floatObject);
+        self::assertInstanceOf('Granam\Float\FloatInterface', $floatObject);
     }
 
     /**
@@ -19,7 +21,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_value()
     {
         $floatObject = new FloatObject($float = 123.456);
-        $this->assertSame($float, $floatObject->getValue());
+        self::assertSame($float, $floatObject->getValue());
     }
 
     /**
@@ -28,7 +30,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_float_object_as_string()
     {
         $floatObject = new FloatObject($float = 123.456);
-        $this->assertSame((string)$float, (string)$floatObject);
+        self::assertSame((string)$float, (string)$floatObject);
     }
 
     /**
@@ -37,7 +39,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_integer_value()
     {
         $floatObject = new FloatObject($integer = 123);
-        $this->assertSame(floatval($integer), $floatObject->getValue());
+        self::assertSame((float)$integer, $floatObject->getValue());
     }
 
     /**
@@ -46,8 +48,8 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_false_as_float_zero()
     {
         $floatObject = new FloatObject(false);
-        $this->assertSame(0.0, $floatObject->getValue());
-        $this->assertSame(floatval(false), $floatObject->getValue());
+        self::assertSame(0.0, $floatObject->getValue());
+        self::assertSame((float)false, $floatObject->getValue());
     }
 
     /**
@@ -56,8 +58,8 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_true_as_float_one()
     {
         $floatObject = new FloatObject(true);
-        $this->assertSame(1.0, $floatObject->getValue());
-        $this->assertSame(floatval(true), $floatObject->getValue());
+        self::assertSame(1.0, $floatObject->getValue());
+        self::assertSame((float)true, $floatObject->getValue());
     }
 
     /**
@@ -66,8 +68,8 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_null_as_float_zero()
     {
         $floatObject = new FloatObject(null);
-        $this->assertSame(0.0, $floatObject->getValue());
-        $this->assertSame(floatval(null), $floatObject->getValue());
+        self::assertSame(0.0, $floatObject->getValue());
+        self::assertSame((float)null, $floatObject->getValue());
     }
 
     /**
@@ -103,9 +105,9 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_can_use_object_with_to_string()
     {
         $floatObject = new FloatObject(new TestWithToString($float = 123.456));
-        $this->assertSame($float, $floatObject->getValue());
+        self::assertSame($float, $floatObject->getValue());
         $stringFloatObject = new FloatObject(new TestWithToString($stringFloat = '987.654'));
-        $this->assertSame(floatval($stringFloat), $stringFloatObject->getValue());
+        self::assertSame((float)$stringFloat, $stringFloatObject->getValue());
     }
 
     /**
@@ -114,8 +116,8 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_get_to_string_object_without_float_as_float_zero()
     {
         $float = new FloatObject(new TestWithToString($string = 'non-float'));
-        $this->assertSame(0.0, $float->getValue());
-        $this->assertSame(floatval($string), $float->getValue());
+        self::assertSame(0.0, $float->getValue());
+        self::assertSame((float)$string, $float->getValue());
     }
 
     /**
@@ -124,14 +126,14 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function I_get_value_withouth_wrapping_trash()
     {
         $withWrappingZeroes = new FloatObject($zeroWrappedNumber = '0000123456.789000');
-        $this->assertSame(123456.789, $withWrappingZeroes->getValue());
-        $this->assertSame(floatval($zeroWrappedNumber), $withWrappingZeroes->getValue());
+        self::assertSame(123456.789, $withWrappingZeroes->getValue());
+        self::assertSame((float)$zeroWrappedNumber, $withWrappingZeroes->getValue());
         $integerLike = new FloatObject($integerLikeNumber = '0000123456.0000');
-        $this->assertSame(123456.0, $integerLike->getValue());
-        $this->assertSame(floatval($integerLikeNumber), $integerLike->getValue());
+        self::assertSame(123456.0, $integerLike->getValue());
+        self::assertSame((float)$integerLikeNumber, $integerLike->getValue());
         $trashAround = new FloatObject($trashWrappedNumber = '   123456.0051500  foo bar 12565.04181 ');
-        $this->assertSame(123456.00515, $trashAround->getValue());
-        $this->assertSame(floatval($trashWrappedNumber), $trashAround->getValue());
+        self::assertSame(123456.00515, $trashAround->getValue());
+        self::assertSame((float)$trashWrappedNumber, $trashAround->getValue());
     }
 
     /**
@@ -140,11 +142,11 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     public function Rounding_is_done_silently_by_default()
     {
         $float = new FloatObject($withTooLongDecimal = '123456.999999999999999999999999999999999999');
-        $this->assertSame(123457.0, $float->getValue());
-        $this->assertSame(floatval($withTooLongDecimal), $float->getValue());
+        self::assertSame(123457.0, $float->getValue());
+        self::assertSame((float)$withTooLongDecimal, $float->getValue());
         $float = new FloatObject($withTooLongInteger = '222222222222222222222222222222222222222222.123');
-        $this->assertSame(2.2222222222222224E+41, $float->getValue());
-        $this->assertSame(floatval($withTooLongInteger), $float->getValue());
+        self::assertSame(2.2222222222222224E+41, $float->getValue());
+        self::assertSame((float)$withTooLongInteger, $float->getValue());
     }
 
     /**
@@ -155,13 +157,13 @@ class FloatTest extends \PHPUnit_Framework_TestCase
     {
         try {
             $floatObject = new FloatObject($floatValue = '123456.999', true /* paranoid */);
-            $this->assertSame(floatval($floatValue), $floatObject->getValue());
+            self::assertSame((float)$floatValue, $floatObject->getValue());
         } catch (\Exception $exception) {
-            $this->fail('Unexpected any exception here: ' . $exception->getMessage());
+            self::fail('Unexpected any exception here: ' . $exception->getMessage());
         }
         try {
             new FloatObject('123456.999999999999999999999999999999999999', true /* paranoid */);
-            $this->fail('Rounding has not been detected');
+            self::fail('Rounding has not been detected');
         } catch (\Exception $exception) {
             throw $exception;
         }
