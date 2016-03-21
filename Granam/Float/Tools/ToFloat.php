@@ -15,7 +15,7 @@ class ToFloat
         // true = 1; false = 0; null = 0
         $value = self::convertToNumber($value, $paranoid);
 
-        return floatval($value);
+        return (float)$value;
     }
 
     private static function convertToNumber($value, $paranoid)
