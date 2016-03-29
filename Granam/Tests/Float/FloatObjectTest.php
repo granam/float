@@ -142,7 +142,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Float\Exceptions\WrongParameterType
+     * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
@@ -154,7 +154,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Float\Exceptions\WrongParameterType
+     * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
@@ -166,7 +166,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Float\Exceptions\WrongParameterType
+     * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid

@@ -1,6 +1,7 @@
 <?php
 namespace Granam\Tests\Float\Tools;
 
+use Granam\Float\FloatObject;
 use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
 
 class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
@@ -12,9 +13,14 @@ class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 
     protected function getRootNamespace()
     {
-        $rootClassReflection = new \ReflectionClass('\Granam\Float\FloatObject');
+        $rootClassReflection = new \ReflectionClass(FloatObject::getClass());
 
         return $rootClassReflection->getNamespaceName();
+    }
+
+    protected function getExternalRootNamespaces()
+    {
+        return '\Granam\Number';
     }
 
 }
