@@ -3,8 +3,24 @@ namespace Granam\Tests\Float;
 
 use Granam\Float\FloatObject;
 
-class FloatObjectTest extends \PHPUnit_Framework_TestCase
+class FloatObjectTest extends ICanUseItSameWayAsUsing
 {
+    /**
+     * @test
+     */
+    public function I_can_use_it_just_with_value_parameter()
+    {
+        parent::assertUsableWithJustValueParameter('\Granam\Float\FloatObject', '__construct');
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_create_it_same_way_as_using_to_float()
+    {
+        parent::I_can_create_it_same_way_as_using();
+    }
+
     /**
      * @test
      * @dataProvider provideStrictnessAndParanoia
