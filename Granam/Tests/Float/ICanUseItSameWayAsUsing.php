@@ -5,22 +5,38 @@ abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
 {
     protected function I_can_create_it_same_way_as_using()
     {
-        $integerObjectReflection = new \ReflectionClass('\Granam\Float\FloatObject');
-        $integerConstructor = $integerObjectReflection->getConstructor()->getParameters();
         $toFloatClassReflection = new \ReflectionClass('\Granam\Float\Tools\ToFloat');
         $toFloatParameters = $toFloatClassReflection->getMethod('toFloat')->getParameters();
-        self::assertEquals($toFloatParameters, $integerConstructor);
-        foreach ($integerConstructor as $index => $constructorParameter) {
-            $toFloatParameter = $toFloatParameters[$index];
-            self::assertEquals($toFloatParameter, $constructorParameter);
-            self::assertSame($toFloatParameter->isOptional(), $constructorParameter->isOptional());
-            self::assertSame($toFloatParameter->allowsNull(), $constructorParameter->allowsNull());
-            self::assertSame($toFloatParameter->isDefaultValueAvailable(), $constructorParameter->isDefaultValueAvailable());
-            if ($constructorParameter->isDefaultValueAvailable()) {
-                self::assertSame($toFloatParameter->getDefaultValue(), $constructorParameter->getDefaultValue());
+        $floatObjectReflection = new \ReflectionClass('\Granam\Float\FloatObject');
+        $floatConstructor = $floatObjectReflection->getConstructor()->getParameters();
+        self::assertEquals(
+            $this->extractParametersDetails($toFloatParameters),
+            $this->extractParametersDetails($floatConstructor)
+        );
+    }
+
+    /**
+     * @param array|\ReflectionParameter[] $parameterReflections
+     * @return array
+     */
+    private function extractParametersDetails(array $parameterReflections)
+    {
+        $extracted = [];
+        foreach ($parameterReflections as $parameterReflection) {
+            $extractedParameter = [];
+            foreach (get_class_methods($parameterReflection) as $methodName) {
+                if (in_array($methodName, ['getName', 'isPassedByReference', 'canBePassedByValue', 'isArray',
+                        'isCallable', 'allowsNull', 'getPosition', 'isOptional', 'isDefaultValueAvailable',
+                        'getDefaultValue', 'isVariadic'], true)
+                    && ($methodName !== 'getDefaultValue' || $parameterReflection->isDefaultValueAvailable())
+                ) {
+                    $extractedParameter[$methodName] = $parameterReflection->$methodName();
+                }
             }
-            self::assertSame($toFloatParameter->getName(), $constructorParameter->getName());
+            $extracted[] = $extractedParameter;
         }
+
+        return $extracted;
     }
 
     protected function assertUsableWithJustValueParameter($sutClass, $testedMethod)
