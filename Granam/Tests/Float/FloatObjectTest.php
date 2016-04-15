@@ -105,10 +105,20 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
         $fromNull = new FloatObject(null, false /* not strict */, $paranoid);
         self::assertSame(0.0, $fromNull->getValue());
         self::assertSame((float)null, $fromNull->getValue());
+
         $fromEmptyString = new FloatObject('', false /* not strict */, $paranoid);
         self::assertEquals($fromNull, $fromEmptyString);
-        $fromWhiteCharacters = new FloatObject("\n\t  \r", false /* not strict */, $paranoid);
+        self::assertSame(0.0, $fromEmptyString->getValue());
+        self::assertSame((float)'', $fromEmptyString->getValue());
+
+        $fromWhiteCharacters = new FloatObject(
+            $whiteCharacters = "\n\t  \r",
+            false /* not strict */,
+            $paranoid
+        );
         self::assertEquals($fromNull, $fromWhiteCharacters);
+        self::assertSame(0.0, $fromWhiteCharacters->getValue());
+        self::assertSame((float)$whiteCharacters, $fromWhiteCharacters->getValue());
     }
 
     public function provideParanoia()

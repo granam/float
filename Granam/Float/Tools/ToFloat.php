@@ -14,9 +14,7 @@ class ToFloat
     public static function toFloat($value, $strict = true, $paranoid = false)
     {
         // true = 1; false = 0; null = 0
-        $value = self::convertToNumber($value, $strict, $paranoid);
-
-        return (float)$value;
+        return (float)self::convertToNumber($value, $strict, $paranoid);
     }
 
     private static function convertToNumber($value, $strict, $paranoid)
