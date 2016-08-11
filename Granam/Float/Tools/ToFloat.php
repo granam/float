@@ -2,6 +2,7 @@
 namespace Granam\Float\Tools;
 
 use Granam\Number\Tools\ToNumber;
+use Granam\Tools\ValueDescriber;
 
 class ToFloat
 {
@@ -36,5 +37,47 @@ class ToFloat
         } catch (\Granam\Number\Tools\Exceptions\ValueLostOnCast $exception) {
             throw new Exceptions\ValueLostOnCast($exception->getMessage(), $exception->getCode(), $exception);
         }
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $strict = true allows only explicit values, not null and empty string
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return int
+     * @throws \Granam\Float\Tools\Exceptions\PositiveFloatCanNotBeNegative
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     */
+    public static function toPositiveFloat($value, $strict = true, $paranoid = false)
+    {
+        $floatValue = static::toFloat($value, $strict, $paranoid);
+        if ($floatValue < 0) {
+            throw new Exceptions\PositiveFloatCanNotBeNegative(
+                'Expected zero or higher number, got ' . ValueDescriber::describe($value)
+            );
+        }
+
+        return $floatValue;
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $strict = true allows only explicit values, not null and empty string
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return int
+     * @throws \Granam\Float\Tools\Exceptions\NegativeFloatCanNotBePositive
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     */
+    public static function toNegativeFloat($value, $strict = true, $paranoid = false)
+    {
+        $floatValue = static::toFloat($value, $strict, $paranoid);
+        if ($floatValue > 0) {
+            throw new Exceptions\NegativeFloatCanNotBePositive(
+                'Expected zero or lesser number, got ' . ValueDescriber::describe($value)
+            );
+        }
+
+        return $floatValue;
     }
 }

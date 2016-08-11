@@ -3,11 +3,15 @@ namespace Granam\Tests\Float;
 
 abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
 {
-    protected function I_can_create_it_same_way_as_using()
+    /**
+     * @param string $toFloatMethod
+     * @param string $floatClass
+     */
+    protected function I_can_use_it_same_way_as_using($toFloatMethod, $floatClass)
     {
         $toFloatClassReflection = new \ReflectionClass('\Granam\Float\Tools\ToFloat');
-        $toFloatParameters = $toFloatClassReflection->getMethod('toFloat')->getParameters();
-        $floatObjectReflection = new \ReflectionClass('\Granam\Float\FloatObject');
+        $toFloatParameters = $toFloatClassReflection->getMethod($toFloatMethod)->getParameters();
+        $floatObjectReflection = new \ReflectionClass($floatClass);
         $floatConstructor = $floatObjectReflection->getConstructor()->getParameters();
         self::assertEquals(
             $this->extractParametersDetails($toFloatParameters),

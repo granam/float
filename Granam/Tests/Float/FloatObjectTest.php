@@ -16,9 +16,9 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
     /**
      * @test
      */
-    public function I_can_create_it_same_way_as_using_to_float()
+    public function I_can_create_it_same_way_as_using_to_float_tool()
     {
-        parent::I_can_create_it_same_way_as_using();
+        $this->I_can_use_it_same_way_as_using('toFloat', FloatObject::getClass());
     }
 
     /**
@@ -32,6 +32,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
         $floatObject = new FloatObject($float = 123.456, $strict, $paranoid);
         self::assertNotNull($floatObject);
         self::assertInstanceOf('Granam\Float\FloatInterface', $floatObject);
+        self::assertInstanceOf('Granam\Number\NumberInterface', $floatObject);
         self::assertSame($float, $floatObject->getValue());
     }
 

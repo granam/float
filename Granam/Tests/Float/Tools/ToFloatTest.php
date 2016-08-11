@@ -1,6 +1,9 @@
 <?php
 namespace Granam\Tests\Float\Tools;
 
+use Granam\Float\FloatObject;
+use Granam\Float\NegativeFloatObject;
+use Granam\Float\PositiveFloatObject;
 use Granam\Tests\Float\ICanUseItSameWayAsUsing;
 
 class ToFloatTest extends ICanUseItSameWayAsUsing
@@ -16,8 +19,10 @@ class ToFloatTest extends ICanUseItSameWayAsUsing
     /**
      * @test
      */
-    public function I_can_create_it_same_way_as_using_number_object()
+    public function I_can_use_it_same_way_as_using_number_object()
     {
-        parent::I_can_create_it_same_way_as_using();
+        $this->I_can_use_it_same_way_as_using('toFloat', FloatObject::getClass());
+        $this->I_can_use_it_same_way_as_using('toPositiveFloat', PositiveFloatObject::getClass());
+        $this->I_can_use_it_same_way_as_using('toNegativeFloat', NegativeFloatObject::getClass());
     }
 }
