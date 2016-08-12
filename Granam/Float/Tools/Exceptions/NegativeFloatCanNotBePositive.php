@@ -1,9 +1,9 @@
 <?php
 namespace Granam\Float\Tools\Exceptions;
 
-use Granam\Number\Exceptions\NegativeNumberCanNotBePositive;
+use Granam\Number\Tools\Exceptions\NegativeNumberCanNotBePositive;
 
-class NegativeFloatCanNotBePositive extends NegativeNumberCanNotBePositive implements Logic
+class NegativeFloatCanNotBePositive extends NegativeNumberCanNotBePositive  implements Logic
 {
 
 }
