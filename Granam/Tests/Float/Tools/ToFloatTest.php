@@ -21,8 +21,8 @@ class ToFloatTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_same_way_as_using_number_object()
     {
-        $this->I_can_use_it_same_way_as_using('toFloat', FloatObject::getClass());
-        $this->I_can_use_it_same_way_as_using('toPositiveFloat', PositiveFloatObject::getClass());
-        $this->I_can_use_it_same_way_as_using('toNegativeFloat', NegativeFloatObject::getClass());
+        $this->I_can_use_it_same_way_as_using('toFloat', FloatObject::class);
+        $this->I_can_use_it_same_way_as_using('toPositiveFloat', PositiveFloatObject::class);
+        $this->I_can_use_it_same_way_as_using('toNegativeFloat', NegativeFloatObject::class);
     }
 }

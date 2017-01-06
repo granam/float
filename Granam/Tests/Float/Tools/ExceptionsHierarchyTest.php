@@ -20,7 +20,7 @@ class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
      */
     protected function getRootNamespace()
     {
-        $rootClassReflection = new \ReflectionClass(FloatObject::getClass());
+        $rootClassReflection = new \ReflectionClass(FloatObject::class);
 
         return $rootClassReflection->getNamespaceName();
     }
@@ -30,7 +30,7 @@ class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
      */
     protected function getExternalRootNamespaces()
     {
-        $numberClassReflection = new \ReflectionClass(NumberObject::getClass());
+        $numberClassReflection = new \ReflectionClass(NumberObject::class);
 
         return $numberClassReflection->getNamespaceName();
     }

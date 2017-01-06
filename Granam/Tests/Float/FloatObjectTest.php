@@ -1,7 +1,9 @@
 <?php
 namespace Granam\Tests\Float;
 
+use Granam\Float\FloatInterface;
 use Granam\Float\FloatObject;
+use Granam\Number\NumberInterface;
 
 class FloatObjectTest extends ICanUseItSameWayAsUsing
 {
@@ -10,7 +12,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_just_with_value_parameter()
     {
-        parent::assertUsableWithJustValueParameter('\Granam\Float\FloatObject', '__construct');
+        parent::assertUsableWithJustValueParameter(FloatObject::class, '__construct');
     }
 
     /**
@@ -18,7 +20,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_create_it_same_way_as_using_to_float_tool()
     {
-        $this->I_can_use_it_same_way_as_using('toFloat', FloatObject::getClass());
+        $this->I_can_use_it_same_way_as_using('toFloat', FloatObject::class);
     }
 
     /**
@@ -31,8 +33,8 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
     {
         $floatObject = new FloatObject($float = 123.456, $strict, $paranoid);
         self::assertNotNull($floatObject);
-        self::assertInstanceOf('Granam\Float\FloatInterface', $floatObject);
-        self::assertInstanceOf('Granam\Number\NumberInterface', $floatObject);
+        self::assertInstanceOf(FloatInterface::class, $floatObject);
+        self::assertInstanceOf(NumberInterface::class, $floatObject);
         self::assertSame($float, $floatObject->getValue());
     }
 

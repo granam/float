@@ -10,7 +10,7 @@ class PositiveFloatObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_as_float()
     {
-        self::assertTrue(is_a(PositiveFloatObject::getClass(), '\Granam\Float\FloatInterface', true));
+        self::assertTrue(is_a(PositiveFloatObject::class, '\Granam\Float\FloatInterface', true));
     }
 
     /**
@@ -29,7 +29,7 @@ class PositiveFloatObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_same_way_as_using_to_positive_float_tool()
     {
-        $this->I_can_use_it_same_way_as_using('toPositiveFloat', PositiveFloatObject::getClass());
+        $this->I_can_use_it_same_way_as_using('toPositiveFloat', PositiveFloatObject::class);
     }
 
     /**
