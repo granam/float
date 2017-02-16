@@ -3,9 +3,9 @@ namespace Granam\Tests\Float\Tools;
 
 use Granam\Float\FloatObject;
 use Granam\Number\NumberObject;
-use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
+use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
-class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
+class FloatExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
     /**
      * @return string
