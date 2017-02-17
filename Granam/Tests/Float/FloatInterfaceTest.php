@@ -1,15 +1,19 @@
 <?php
 namespace Granam\Tests\Float;
 
-class FloatInterfaceTest extends \PHPUnit_Framework_TestCase
+use Granam\Float\FloatInterface;
+use Granam\Number\NumberInterface;
+use PHPUnit\Framework\TestCase;
+
+class FloatInterfaceTest extends TestCase
 {
 
     /** @test */
     public function inherits_from_scalar_interface()
     {
         self::assertTrue(is_a(
-            'Granam\Float\FloatInterface',
-            'Granam\Number\NumberInterface',
+            FloatInterface::class,
+            NumberInterface::class,
             true /* accept class name instead of instance */
         ));
     }

@@ -1,7 +1,10 @@
 <?php
 namespace Granam\Tests\Float;
 
-abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
+use Granam\Float\Tools\ToFloat;
+use PHPUnit\Framework\TestCase;
+
+abstract class ICanUseItSameWayAsUsing extends TestCase
 {
     /**
      * @param string $toFloatMethod
@@ -9,7 +12,7 @@ abstract class ICanUseItSameWayAsUsing extends \PHPUnit_Framework_TestCase
      */
     protected function I_can_use_it_same_way_as_using($toFloatMethod, $floatClass)
     {
-        $toFloatClassReflection = new \ReflectionClass('\Granam\Float\Tools\ToFloat');
+        $toFloatClassReflection = new \ReflectionClass(ToFloat::class);
         $toFloatParameters = $toFloatClassReflection->getMethod($toFloatMethod)->getParameters();
         $floatObjectReflection = new \ReflectionClass($floatClass);
         $floatConstructor = $floatObjectReflection->getConstructor()->getParameters();
