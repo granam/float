@@ -8,5 +8,5 @@ interface FloatInterface extends NumberInterface
     /**
      * @return float
      */
-    public function getValue();
+    public function getValue(): float;
 }

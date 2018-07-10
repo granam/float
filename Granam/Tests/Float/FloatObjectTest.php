@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 namespace Granam\Tests\Float;
 
 use Granam\Float\FloatInterface;
@@ -9,16 +11,18 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
 {
     /**
      * @test
+     * @throws \ReflectionException
      */
-    public function I_can_use_it_just_with_value_parameter()
+    public function I_can_use_it_just_with_value_parameter(): void
     {
         parent::assertUsableWithJustValueParameter(FloatObject::class, '__construct');
     }
 
     /**
      * @test
+     * @throws \ReflectionException
      */
-    public function I_can_create_it_same_way_as_using_to_float_tool()
+    public function I_can_create_it_same_way_as_using_to_float_tool(): void
     {
         $this->I_can_use_it_same_way_as_using('toFloat', FloatObject::class);
     }
@@ -29,7 +33,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_can_create_float_object($strict, $paranoid)
+    public function I_can_create_float_object(bool $strict, bool $paranoid): void
     {
         $floatObject = new FloatObject($float = 123.456, $strict, $paranoid);
         self::assertNotNull($floatObject);
@@ -38,7 +42,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
         self::assertSame($float, $floatObject->getValue());
     }
 
-    public function provideStrictnessAndParanoia()
+    public function provideStrictnessAndParanoia(): array
     {
         return [
             [false, false],
@@ -54,7 +58,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_can_use_float_object_as_string($strict, $paranoid)
+    public function I_can_use_float_object_as_string(bool $strict, bool $paranoid): void
     {
         $floatObject = new FloatObject($float = 123.456, $strict, $paranoid);
         self::assertSame((string)$float, (string)$floatObject);
@@ -66,7 +70,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_can_use_integer_value($strict, $paranoid)
+    public function I_can_use_integer_value(bool $strict, bool $paranoid): void
     {
         $floatObject = new FloatObject($integer = 123, $strict, $paranoid);
         self::assertSame((float)$integer, $floatObject->getValue());
@@ -78,7 +82,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_can_use_false_as_float_zero($strict, $paranoid)
+    public function I_can_use_false_as_float_zero(bool $strict, bool $paranoid): void
     {
         $floatObject = new FloatObject(false, $strict, $paranoid);
         self::assertSame(0.0, $floatObject->getValue());
@@ -91,7 +95,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_can_use_true_as_float_one($strict, $paranoid)
+    public function I_can_use_true_as_float_one(bool $strict, bool $paranoid): void
     {
         $floatObject = new FloatObject(true, $strict, $paranoid);
         self::assertSame(1.0, $floatObject->getValue());
@@ -103,7 +107,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @dataProvider provideParanoia
      * @param bool $paranoid
      */
-    public function I_can_use_null_and_empty_string_as_float_zero_if_not_strict($paranoid)
+    public function I_can_use_null_and_empty_string_as_float_zero_if_not_strict($paranoid): void
     {
         $fromNull = new FloatObject(null, false /* not strict */, $paranoid);
         self::assertSame(0.0, $fromNull->getValue());
@@ -124,7 +128,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
         self::assertSame((float)$whiteCharacters, $fromWhiteCharacters->getValue());
     }
 
-    public function provideParanoia()
+    public function provideParanoia(): array
     {
         return [
             [true],
@@ -138,12 +142,12 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @dataProvider provideNonNumericNonBoolean
      * @param $value
      */
-    public function I_can_not_use_non_numeric_non_boolean_by_default($value)
+    public function I_can_not_use_non_numeric_non_boolean_by_default($value): void
     {
         new FloatObject($value);
     }
 
-    public function provideNonNumericNonBoolean()
+    public function provideNonNumericNonBoolean(): array
     {
         return [
             [null],
@@ -160,7 +164,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_cannot_use_array($strict, $paranoid)
+    public function I_cannot_use_array(bool $strict, bool $paranoid): void
     {
         new FloatObject([], $strict, $paranoid);
     }
@@ -172,7 +176,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_cannot_use_resource($strict, $paranoid)
+    public function I_cannot_use_resource(bool $strict, bool $paranoid): void
     {
         new FloatObject(tmpfile(), $strict, $paranoid);
     }
@@ -184,7 +188,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_cannot_use_object($strict, $paranoid)
+    public function I_cannot_use_object(bool $strict, bool $paranoid): void
     {
         new FloatObject(new \stdClass(), $strict, $paranoid);
     }
@@ -195,7 +199,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_can_use_object_with_to_string($strict, $paranoid)
+    public function I_can_use_object_with_to_string(bool $strict, bool $paranoid): void
     {
         $floatObject = new FloatObject(new TestWithToString($float = 123.456), $strict, $paranoid);
         self::assertSame($float, $floatObject->getValue());
@@ -206,7 +210,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
     /**
      * @test
      */
-    public function I_get_to_string_object_without_number_as_float_zero_if_not_strict()
+    public function I_get_to_string_object_without_number_as_float_zero_if_not_strict(): void
     {
         $float = new FloatObject(new TestWithToString($string = 'non-float'), false /* not strict */);
         self::assertSame(0.0, $float->getValue());
@@ -219,7 +223,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @param bool $strict
      * @param bool $paranoid
      */
-    public function I_get_value_without_wrapping_trash($strict, $paranoid)
+    public function I_get_value_without_wrapping_trash(bool $strict, bool $paranoid): void
     {
         $withWrappingZeroes = new FloatObject($zeroWrappedNumber = '0000123456.789000', $strict, $paranoid);
         self::assertSame(123456.789, $withWrappingZeroes->getValue());
@@ -232,7 +236,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
     /**
      * @test
      */
-    public function I_get_number_cleared_of_leading_non_number_trash_if_not_strict()
+    public function I_get_number_cleared_of_leading_non_number_trash_if_not_strict(): void
     {
         $trashAround = new FloatObject($trashWrappedNumber = '   123456.0051500  foo bar 12565.04181 ', false /* not strict */);
         self::assertSame(123456.00515, $trashAround->getValue());
@@ -243,7 +247,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @test
      * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      */
-    public function I_can_not_use_number_with_leading_non_number_trash_by_default()
+    public function I_can_not_use_number_with_leading_non_number_trash_by_default(): void
     {
         new FloatObject($trashWrappedNumber = '   123456.0051500  foo bar 12565.04181 ');
     }
@@ -251,7 +255,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
     /**
      * @test
      */
-    public function Rounding_is_done_silently_by_default()
+    public function Rounding_is_done_silently_by_default(): void
     {
         $float = new FloatObject($withTooLongDecimal = '123456.999999999999999999999999999999999999');
         self::assertSame(123457.0, $float->getValue());
@@ -267,7 +271,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      * @dataProvider provideStrictness
      * @param bool $strict
      */
-    public function I_can_force_exception_in_case_of_rounding($strict)
+    public function I_can_force_exception_in_case_of_rounding($strict): void
     {
         try {
             $floatObject = new FloatObject($floatValue = '123456.999', $strict, true /* paranoid */);
@@ -279,7 +283,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
         self::fail('Rounding has not been detected');
     }
 
-    public function provideStrictness()
+    public function provideStrictness(): array
     {
         return [
             [true],

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Granam\Float;
 
 use Granam\Float\Tools\ToFloat;
@@ -15,10 +17,15 @@ class NegativeFloatObject extends NegativeNumberObject implements NegativeFloat
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
-    public function __construct($value, $strict = true, $paranoid = false)
+    public function __construct($value, bool $strict = true, bool $paranoid = false)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         parent::__construct(ToFloat::toNegativeFloat($value, $strict, $paranoid));
+    }
+
+    public function getValue(): float
+    {
+        return parent::getValue();
     }
 
 }
