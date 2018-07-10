@@ -10,15 +10,16 @@ class FloatExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
     /**
      * @return string
      */
-    protected function getTestedNamespace()
+    protected function getTestedNamespace(): string
     {
-        return str_replace('\Tests', '', __NAMESPACE__);
+        return \str_replace('\Tests', '', __NAMESPACE__);
     }
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
-    protected function getRootNamespace()
+    protected function getRootNamespace(): string
     {
         $rootClassReflection = new \ReflectionClass(FloatObject::class);
 
@@ -27,8 +28,9 @@ class FloatExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
-    protected function getExternalRootNamespaces()
+    protected function getExternalRootNamespaces(): string
     {
         $numberClassReflection = new \ReflectionClass(NumberObject::class);
 

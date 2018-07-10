@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Granam\Float\Tools;
 
@@ -9,6 +9,23 @@ use Granam\Tools\ValueDescriber;
 
 class ToFloat extends StrictObject
 {
+    /**
+     * @param $value
+     * @param bool $strict = true allows only explicit values, empty string and null (remains null)
+     * @param bool $paranoid Throws exception if some value is lost on cast due to rounding on cast
+     * @return float|null
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     */
+    public static function toFloatOrNull($value, bool $strict = true, bool $paranoid = false): ?float
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return static::toFloat($value, $strict, $paranoid);
+    }
+
     /**
      * @param $value
      * @param bool $strict = true allows only explicit values, not null and empty string
@@ -44,6 +61,24 @@ class ToFloat extends StrictObject
 
     /**
      * @param mixed $value
+     * @param bool $strict = true allows only explicit values, empty string and null (remains null)
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return float|null
+     * @throws \Granam\Float\Tools\Exceptions\PositiveFloatCanNotBeNegative
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     */
+    public static function toPositiveFloatOrNull($value, bool $strict = true, bool $paranoid = false): ?float
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return static::toPositiveFloat($value, $strict, $paranoid);
+    }
+
+    /**
+     * @param mixed $value
      * @param bool $strict = true allows only explicit values, not null and empty string
      * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
      * @return float
@@ -61,6 +96,24 @@ class ToFloat extends StrictObject
         }
 
         return $floatValue;
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $strict = true allows only explicit values, empty string and null (remains null)
+     * @param bool $paranoid = false Throws exception if some value is lost on cast due to rounding on cast
+     * @return float|null
+     * @throws \Granam\Float\Tools\Exceptions\NegativeFloatCanNotBePositive
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     */
+    public static function toNegativeFloatOrNull($value, bool $strict = true, bool $paranoid = false): ?float
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        return static::toNegativeFloat($value, $strict, $paranoid);
     }
 
     /**
