@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Granam\Tests\Float;
 
@@ -38,10 +37,10 @@ class NegativeFloatObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Float\Tools\Exceptions\NegativeFloatCanNotBePositive
      */
     public function I_can_not_create_it_positive(): void
     {
+        $this->expectException(\Granam\Float\Tools\Exceptions\NegativeFloatCanNotBePositive::class);
         new NegativeFloatObject(0.01);
     }
 }

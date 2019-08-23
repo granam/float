@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Granam\Tests\Float;
 
@@ -10,7 +9,9 @@ use PHPUnit\Framework\TestCase;
 class FloatInterfaceTest extends TestCase
 {
 
-    /** @test */
+    /**
+     * @test
+     */
     public function inherits_from_scalar_interface(): void
     {
         self::assertTrue(\is_a(

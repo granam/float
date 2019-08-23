@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 declare(strict_types = 1);
 
 namespace Granam\Tests\Float;
@@ -138,12 +139,12 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      * @dataProvider provideNonNumericNonBoolean
      * @param $value
      */
     public function I_can_not_use_non_numeric_non_boolean_by_default($value): void
     {
+        $this->expectException(\Granam\Float\Tools\Exceptions\WrongParameterType::class);
         new FloatObject($value);
     }
 
@@ -159,37 +160,37 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
      */
     public function I_cannot_use_array(bool $strict, bool $paranoid): void
     {
+        $this->expectException(\Granam\Float\Tools\Exceptions\WrongParameterType::class);
         new FloatObject([], $strict, $paranoid);
     }
 
     /**
      * @test
-     * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
      */
     public function I_cannot_use_resource(bool $strict, bool $paranoid): void
     {
+        $this->expectException(\Granam\Float\Tools\Exceptions\WrongParameterType::class);
         new FloatObject(tmpfile(), $strict, $paranoid);
     }
 
     /**
      * @test
-     * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      * @dataProvider provideStrictnessAndParanoia
      * @param bool $strict
      * @param bool $paranoid
      */
     public function I_cannot_use_object(bool $strict, bool $paranoid): void
     {
+        $this->expectException(\Granam\Float\Tools\Exceptions\WrongParameterType::class);
         new FloatObject(new \stdClass(), $strict, $paranoid);
     }
 
@@ -245,10 +246,10 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Float\Tools\Exceptions\WrongParameterType
      */
     public function I_can_not_use_number_with_leading_non_number_trash_by_default(): void
     {
+        $this->expectException(\Granam\Float\Tools\Exceptions\WrongParameterType::class);
         new FloatObject($trashWrappedNumber = '   123456.0051500  foo bar 12565.04181 ');
     }
 
@@ -267,12 +268,12 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
 
     /**
      * @test
-     * @expectedException \Granam\Float\Tools\Exceptions\ValueLostOnCast
      * @dataProvider provideStrictness
      * @param bool $strict
      */
     public function I_can_force_exception_in_case_of_rounding($strict): void
     {
+        $this->expectException(\Granam\Float\Tools\Exceptions\ValueLostOnCast::class);
         try {
             $floatObject = new FloatObject($floatValue = '123456.999', $strict, true /* paranoid */);
             self::assertSame((float)$floatValue, $floatObject->getValue());
