@@ -18,15 +18,21 @@
   "homepage": "https://github.com/jaroslavtyc/granam-float",
   "autoload": {
     "psr-4": {
-      "Granam\\": "Granam/"
+      "Granam\\Float\\": "Float"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Granam\\Tests\\Float\\": "tests/Float",
+      "Granam\\Tests\\ExceptionsHierarchy\\": "vendor/granam/exceptions-hierarchy/tests/ExceptionsHierarchy"
     }
   },
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.3",
     "granam/number": "^5.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8.3",
+    "phpunit/phpunit": "^9.0",
     "mockery/mockery": "^1.2",
     "granam/exceptions-hierarchy": "^5.0"
   }

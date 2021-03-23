@@ -8,18 +8,11 @@ use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
 class FloatExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
-    /**
-     * @return string
-     */
     protected function getTestedNamespace(): string
     {
         return \str_replace('\Tests', '', __NAMESPACE__);
     }
 
-    /**
-     * @return string
-     * @throws \ReflectionException
-     */
     protected function getRootNamespace(): string
     {
         $rootClassReflection = new \ReflectionClass(FloatObject::class);
@@ -27,15 +20,11 @@ class FloatExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
         return $rootClassReflection->getNamespaceName();
     }
 
-    /**
-     * @return string
-     * @throws \ReflectionException
-     */
-    protected function getExternalRootNamespaces(): string
+    protected function getExternalRootNamespaces(): array
     {
         $numberClassReflection = new \ReflectionClass(NumberObject::class);
 
-        return $numberClassReflection->getNamespaceName();
+        return [$numberClassReflection->getNamespaceName()];
     }
 
 }

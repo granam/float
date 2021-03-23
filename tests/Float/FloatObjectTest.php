@@ -1,7 +1,5 @@
 <?php declare(strict_types=1);
 
-declare(strict_types = 1);
-
 namespace Granam\Tests\Float;
 
 use Granam\Float\FloatInterface;
@@ -16,7 +14,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
      */
     public function I_can_use_it_just_with_value_parameter(): void
     {
-        parent::assertUsableWithJustValueParameter(FloatObject::class, '__construct');
+        $this->assertUsableWithJustValueParameter(FloatObject::class, '__construct');
     }
 
     /**
@@ -133,7 +131,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
     {
         return [
             [true],
-            [false]
+            [false],
         ];
     }
 
@@ -154,7 +152,7 @@ class FloatObjectTest extends ICanUseItSameWayAsUsing
             [null],
             [''],
             ["  \n\t  \r"],
-            ['one']
+            ['one'],
         ];
     }
 

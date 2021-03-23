@@ -10,7 +10,6 @@ abstract class ICanUseItSameWayAsUsing extends TestCase
     /**
      * @param string $toFloatMethod
      * @param string $floatClass
-     * @throws \ReflectionException
      */
     protected function I_can_use_it_same_way_as_using(string $toFloatMethod, string $floatClass): void
     {
@@ -34,9 +33,9 @@ abstract class ICanUseItSameWayAsUsing extends TestCase
         $extracted = [];
         foreach ($parameterReflections as $parameterReflection) {
             $extractedParameter = [];
-            foreach (\get_class_methods($parameterReflection) as $methodName) {
-                if (\in_array($methodName, ['getName', 'isPassedByReference', 'canBePassedByValue', 'isArray',
-                        'isCallable', 'allowsNull', 'getPosition', 'isOptional', 'isDefaultValueAvailable',
+            foreach (get_class_methods($parameterReflection) as $methodName) {
+                if (in_array($methodName, ['getName', 'isPassedByReference', 'canBePassedByValue', 'getType',
+                        'allowsNull', 'getPosition', 'isOptional', 'isDefaultValueAvailable',
                         'getDefaultValue', 'isVariadic'], true)
                     && ($methodName !== 'getDefaultValue' || $parameterReflection->isDefaultValueAvailable())
                 ) {
@@ -52,7 +51,6 @@ abstract class ICanUseItSameWayAsUsing extends TestCase
     /**
      * @param string $sutClass
      * @param string $testedMethod
-     * @throws \ReflectionException
      */
     protected function assertUsableWithJustValueParameter(string $sutClass, string $testedMethod): void
     {

@@ -12,16 +12,14 @@ class ToFloatTest extends ICanUseItSameWayAsUsing
 {
     /**
      * @test
-     * @throws \ReflectionException
      */
     public function I_can_use_it_just_with_value_parameter(): void
     {
-        parent::assertUsableWithJustValueParameter(ToFloat::class, 'toFloat');
+        $this->assertUsableWithJustValueParameter(ToFloat::class, 'toFloat');
     }
 
     /**
      * @test
-     * @throws \ReflectionException
      */
     public function I_can_use_it_same_way_as_using_number_object(): void
     {

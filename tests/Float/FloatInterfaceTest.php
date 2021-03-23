@@ -14,7 +14,7 @@ class FloatInterfaceTest extends TestCase
      */
     public function inherits_from_scalar_interface(): void
     {
-        self::assertTrue(\is_a(
+        self::assertTrue(is_a(
             FloatInterface::class,
             NumberInterface::class,
             true /* accept class name instead of instance */
